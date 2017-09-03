@@ -3,7 +3,7 @@
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
-
+import numpy
 
 import time
 
@@ -32,14 +32,15 @@ def loop(agents, env, max_frames=0):
           return
         if timesteps[0].last(): #end of a episode
           # print(timestep.observation["screen"][6])
+          print("Reward {}".format(agent.reward))
           rList.append(agent.reward)
           break
         timesteps = env.step(actions)
   except KeyboardInterrupt:
     pass
   finally:
-    print(rList)
     elapsed_time = time.time() - start_time
     print("Took %.3f seconds for %s steps: %.3f fps" % (
         elapsed_time, total_frames, total_frames / elapsed_time))
+    numpy.save("rList.npy", rList)
 

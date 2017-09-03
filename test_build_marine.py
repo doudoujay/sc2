@@ -25,12 +25,13 @@ from future.builtins import range  # pylint: disable=redefined-builtin
 
 from pysc2 import maps
 from pysc2.env import available_actions_printer
-from loop import loop
+from loop import *
 from pysc2.env import sc2_env
 from pysc2.lib import stopwatch
 
 from pysc2.lib import app
 import gflags as flags
+
 
 
 FLAGS = flags.FLAGS
@@ -102,6 +103,7 @@ def main(unused_argv):
 
   if FLAGS.profile:
     print(stopwatch.sw)
+
 
 
 def entry_point():  # Needed so setup.py scripts work.

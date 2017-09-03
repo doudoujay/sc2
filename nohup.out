@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "./test_build_marine.py", line 26, in <module>
+    from pysc2 import maps
+ImportError: No module named pysc2

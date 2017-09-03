@@ -8,6 +8,8 @@ import numpy
 import time
 
 rList = []
+screenList = []
+actionList = []
 
 def loop(agents, env, max_frames=0):
   """A run loop to have agents and an environment interact."""
@@ -29,10 +31,10 @@ def loop(agents, env, max_frames=0):
         actions = [agent.step(timestep)
                    for agent, timestep in zip(agents, timesteps)]
         if max_frames and total_frames >= max_frames: #end of the total frames
+          actionList.append(env._seen) #save action_seen for each agent
           return
         if timesteps[0].last(): #end of a episode
-          # print(timestep.observation["screen"][6])
-          print("Reward {}".format(agent.reward))
+          screenList.append(timestep.observation["screen"][6])
           rList.append(agent.reward)
           break
         timesteps = env.step(actions)
@@ -42,5 +44,7 @@ def loop(agents, env, max_frames=0):
     elapsed_time = time.time() - start_time
     print("Took %.3f seconds for %s steps: %.3f fps" % (
         elapsed_time, total_frames, total_frames / elapsed_time))
-    numpy.save("rList.npy", rList)
+    numpy.save("rList.npy", rList) #save r value
+    numpy.save("screenList.npy", screenList) # save screen value
+    numpy.save("actionList.npy", actionList) # save action list
 

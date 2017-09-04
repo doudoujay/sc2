@@ -7,7 +7,7 @@ class Qnetwork():
         # The network recieves a frame from the game, flattened into an array.
         # It then resizes it and processes it through four convolutional layers.
         self.scalarInput = tf.placeholder(shape=[None, state_size], dtype=tf.float32)
-        self.imageIn = tf.reshape(self.scalarInput, shape=[-1, screen_xy, screen_xy, unit_type_size])
+        self.imageIn = tf.reshape(self.scalarInput, shape=[-1, screen_xy, screen_xy, unit_type_valid_size])
         self.conv1 = slim.conv2d( \
             inputs=self.imageIn, num_outputs=32, kernel_size=[8, 8], stride=[4, 4], padding='VALID',
             biases_initializer=None)
@@ -26,7 +26,7 @@ class Qnetwork():
         self.streamA = slim.flatten(self.streamAC)
         self.streamV = slim.flatten(self.streamVC)
         xavier_init = tf.contrib.layers.xavier_initializer()
-        self.AW = tf.Variable(xavier_init([h_size // 2, action_size]))
+        self.AW = tf.Variable(xavier_init([h_size // 2, action_type_valid_size]))
         self.VW = tf.Variable(xavier_init([h_size // 2, 1]))
         self.Advantage = tf.matmul(self.streamA, self.AW)
         self.Value = tf.matmul(self.streamV, self.VW)
@@ -38,7 +38,7 @@ class Qnetwork():
         # Below we obtain the loss by taking the sum of squares difference between the target and prediction Q values.
         self.targetQ = tf.placeholder(shape=[None], dtype=tf.float32)
         self.actions = tf.placeholder(shape=[None], dtype=tf.int32)
-        self.actions_onehot = tf.one_hot(self.actions, action_size, dtype=tf.float32)
+        self.actions_onehot = tf.one_hot(self.actions, action_type_valid_size, dtype=tf.float32)
 
         self.Q = tf.reduce_sum(tf.multiply(self.Qout, self.actions_onehot), axis=1)
 

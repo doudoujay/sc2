@@ -34,6 +34,10 @@ def isBarracksSelected(obs):
                 return True
     return False
 
+def getTerrainBarracksLocation(obs):
+    if any(_TERRAN_BARRACKS in sublist for sublist in obs["screen"][_UNIT_TYPE_VIEW]):
+        return zip(*np.where(obs["screen"][_UNIT_TYPE_VIEW] == _TERRAN_BARRACKS))
+
 # Train the network
 def train():
     FLAGS(sys.argv)
@@ -111,6 +115,7 @@ def train():
                         else:
                             a = np.random.choice(avail_actions)
                             if a == 5:
+                                getTerrainBarracksLocation(timestep)
                                 print ""
                             args = [[np.random.randint(0, size) for size in arg.sizes]
                                 for arg in action_spec.functions[a].args]

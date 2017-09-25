@@ -4,12 +4,16 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 import numpy
+import pysc2.lib.features as features
 
 import time
 
 rList = []
 screenList = []
 actionList = []
+_PLAYER_RELATIVE = features.SCREEN_FEATURES.player_relative.index
+
+
 
 def loop(agents, env, max_frames=0):
   """A run loop to have agents and an environment interact."""
@@ -34,8 +38,8 @@ def loop(agents, env, max_frames=0):
           actionList.append(env._seen) #save action_seen for each agent
           return
         if timesteps[0].last(): #end of a episode
-          screenList.append(timestep.observation["screen"][6])
-          rList.append(agent.reward)
+          screenList.append(timestep.observation["screen"][_PLAYER_RELATIVE])
+          rList.append(timestep.reward)
           break
         timesteps = env.step(actions)
   except KeyboardInterrupt:

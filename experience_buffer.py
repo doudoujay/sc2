@@ -3,7 +3,7 @@ import random
 
 
 class experience_buffer():
-    def __init__(self, buffer_size=50000):
+    def __init__(self, buffer_size=200000):
         self.buffer = []
         self.buffer_size = buffer_size
 

@@ -10,7 +10,7 @@ step_mul=8
 max_epLength = 15000/step_mul #The max allowed length of our episode.
 annealing_steps = max_epLength*100 #How many steps of training to reduce startE to endE.
 pre_train_steps = max_epLength*100 #How many steps of random actions before training begins.
-load_model = False #Whether to load a saved model.
+load_model = True #Whether to load a saved model.
 path = "./dqn" #The path to save our model to.
 h_size = 512 #The size of the final convolutional layer before splitting it into Advantage and Value streams.
 tau = 0.001 #Rate to update target network toward primary network
@@ -53,3 +53,4 @@ action_type_valid_size = len(action_type_valid)  #valid action type size
 
 map_name = "BuildMarines"
 visualize = True
+buffer_size = max_epLength*20

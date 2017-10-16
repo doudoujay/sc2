@@ -11,9 +11,11 @@ class Qnetwork():
         self.conv1 = slim.conv2d( \
             inputs=self.imageIn, num_outputs=32, kernel_size=8, stride=4, padding='VALID',
             biases_initializer=None)
+        # Add tf.nn.batch_normalization
         self.conv2 = slim.conv2d( \
             inputs=self.conv1, num_outputs=64, kernel_size=4, stride=2, padding='VALID',
             biases_initializer=None)
+        # Add tf.nn.batch_normalization
         self.conv3 = slim.conv2d( \
             inputs=self.conv2, num_outputs=64, kernel_size=3, stride=1, padding='VALID',
             biases_initializer=None)

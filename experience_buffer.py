@@ -4,7 +4,9 @@ from params import *
 
 
 class experience_buffer():
+
     def __init__(self, buffer_size=buffer_size):
+
         self.buffer = []
         self.buffer_size = buffer_size
 

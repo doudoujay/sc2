@@ -11,6 +11,7 @@ import pysc2.lib.features
 import time
 from etaprogress.progress import ProgressBar
 
+
 _UNIT_TYPE_VIEW = features.SCREEN_FEATURES.unit_type.index
 _PLAYER_FRIENDLY = 1
 _PLAYER_NEUTRAL = 3  # beacon/minerals
@@ -122,9 +123,11 @@ def train():
                             if not isBarracksSelected(timestep.observation):
                                 # not selected yet.
                                 location = getTerrainBarracksLocation(timestep.observation)
-                                # y goes first, and then x
+
+                                # y goes first, amd then x
                                 unit_y, unit_x = (
-                                    timestep.observation["screen"][_UNIT_TYPE_VIEW] == _TERRAN_BARRACKS).nonzero()
+                                timestep.observation["screen"][_UNIT_TYPE_VIEW] == _TERRAN_BARRACKS).nonzero()
+
                                 target = [int(unit_x.mean()), int(unit_y.mean())]
                                 a = _SELECT_POINT
                                 args = [[_ALL_OF_TYPE_SELECT_POINT], target]
@@ -199,7 +202,9 @@ def train():
                     np.save("jList.npy", jList) #save j value
                     print("Saved Model")
                 if len(rList) % 10 == 0:
+
                     print(total_steps, np.mean(rList[-10:]), e, pre_train_steps)
+
             saver.save(sess, path + '/model-' + str(i) + '.ckpt')
         print("Percent of succesful episodes: " + str(sum(rList) / num_episodes) + "%")
 

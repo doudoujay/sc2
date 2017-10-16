@@ -2,7 +2,6 @@
 *.csv
 *.npy
 *.dat
-*.pdf
 /dqn
 /.ipynb_checkpoints
 
